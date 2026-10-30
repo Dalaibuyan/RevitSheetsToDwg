@@ -1,0 +1,16 @@
+bin/
+obj/
+dist/
+*.user
+.vs/
+
+# AutoCAD / test output
+*.err
+*.bak
+*.log
+Drawing*_recover*.dwg
+tests/out/
+
+# Project drawings (client data) used for local testing only
+tests/real/
+tests/real-img/

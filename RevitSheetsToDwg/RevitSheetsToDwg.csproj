@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Build per Revit version: dotnet build -c Release -p:RevitVersion=2024|2025|2026|2027 -->
+  <PropertyGroup>
+    <RevitVersion Condition="'$(RevitVersion)'==''">2024</RevitVersion>
+    <TargetFramework Condition="'$(RevitVersion)'&lt;'2025'">net48</TargetFramework>
+    <TargetFramework Condition="'$(RevitVersion)'=='2025' Or '$(RevitVersion)'=='2026'">net8.0-windows</TargetFramework>
+    <TargetFramework Condition="'$(RevitVersion)'&gt;='2027'">net10.0-windows</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\$(Configuration)\R$(RevitVersion)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\R$(RevitVersion)\</IntermediateOutputPath>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <RevitDir Condition="'$(RevitDir)'==''">C:\Program Files\Autodesk\Revit $(RevitVersion)</RevitDir>
+  </PropertyGroup>
+  <!-- Installed Revit: reference its own API; otherwise use the reference-only NuGet packages -->
+  <ItemGroup Condition="Exists('$(RevitDir)\RevitAPI.dll')">
+    <Reference Include="RevitAPI"><HintPath>$(RevitDir)\RevitAPI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="RevitAPIUI"><HintPath>$(RevitDir)\RevitAPIUI.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <ItemGroup Condition="!Exists('$(RevitDir)\RevitAPI.dll')">
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

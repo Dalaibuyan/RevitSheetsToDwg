@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Revit Sheets to DWG</Name>
+    <Assembly>RevitSheetsToDwg\RevitSheetsToDwg.dll</Assembly>
+    <AddInId>6E0D3F7A-2B1C-4C8E-9A51-3F2D7B9C4E10</AddInId>
+    <FullClassName>RevitSheetsToDwg.App</FullClassName>
+    <VendorId>DALAI</VendorId>
+    <VendorDescription>Олон sheet-ийг нэг DWG болгох</VendorDescription>
+  </AddIn>
+</RevitAddIns>
